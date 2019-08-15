@@ -114,6 +114,7 @@ public class UserDaoImpl implements UserDao{
 			entityManager.getTransaction().begin();
 			BooksTransaction transaction=entityManager.find(BooksTransaction.class, transactionId);
 			transaction.setFine(0);
+			entityManager.remove(transaction);
 			entityManager.getTransaction().commit();
 			entityManager.close();
 			return true;

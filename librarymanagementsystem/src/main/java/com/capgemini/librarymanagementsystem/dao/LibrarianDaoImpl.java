@@ -17,7 +17,6 @@ import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
 import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
 import com.capgemini.librarymanagementsystem.dto.BooksTransaction;
 import com.capgemini.librarymanagementsystem.dto.Users;
-import com.capgemini.librarymanagementsystem.exception.BookNotFoundException;
 
 @Repository
 public class LibrarianDaoImpl implements LibrarianDao {
@@ -25,7 +24,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 	@PersistenceUnit
 	EntityManagerFactory entityManagerFactory;
 	@Override
-	public BooksInventoryInfo addBook(BooksInventoryInfo book) throws BookNotFoundException {
+	public BooksInventoryInfo addBook(BooksInventoryInfo book) {
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
 			EntityTransaction entityTransaction=entityManager.getTransaction();
@@ -36,14 +35,14 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			entityTransaction.commit();
 			entityManager.close();
 		} catch (Exception e) {
-			throw new BookNotFoundException("unable to add book");
+			e.printStackTrace();
 		}
 		return book;
 
 	}
 
 	@Override
-	public boolean deleteBook(int bookId) throws BookNotFoundException {
+	public boolean deleteBook(int bookId) {
 		boolean isDeleted=false;
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
@@ -55,7 +54,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			entityManager.close();
 			isDeleted=true;					
 		} catch (Exception e) {
-			throw new BookNotFoundException("unable to delete book");
+			e.printStackTrace();
 		}
 		return isDeleted;
 	}
@@ -63,7 +62,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 
 
 	@Override
-	public List<BooksInventoryInfo> getAllBooks() throws BookNotFoundException{
+	public List<BooksInventoryInfo> getAllBooks() {
 		List<BooksInventoryInfo> bookList=null;
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
@@ -71,8 +70,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			bookList=query.getResultList();
 			entityManager.close();
 		} catch (Exception e) {
-			throw new BookNotFoundException("unable to find books");
-		}
+			e.printStackTrace();		}
 		return bookList;
 	}
 
