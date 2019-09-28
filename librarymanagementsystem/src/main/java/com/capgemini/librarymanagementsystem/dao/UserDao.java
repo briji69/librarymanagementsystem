@@ -1,0 +1,19 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import java.util.List;
+
+import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
+import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
+
+public interface UserDao {
+	
+	// to search book
+		public List<BooksInventoryInfo> searchBooks(String bookName);
+		public List<BooksInventoryInfo> searchBooks(String bookName, String firstAuthor);
+		
+		// to send and receive 
+		public BooksRegistration requestToBook(int bookId);
+		
+		//to return
+		public BooksInventoryInfo returnBook(int transactionId);
+}
