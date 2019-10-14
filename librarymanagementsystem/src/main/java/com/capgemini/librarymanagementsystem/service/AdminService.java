@@ -13,7 +13,7 @@ public interface AdminService {
 	//to perform add,update and delete operation on librarian
 	public Users addLibrarian(Users user);
 	public Boolean updateLibrarian(Users user);
-	public Boolean deleteLibrarian(String id);
+	public Boolean deleteLibrarian(int id);
 		
 	List<Users> showAllLibrarians();
 

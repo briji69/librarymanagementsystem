@@ -44,7 +44,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public Boolean deleteLibrarian(String id) {
+	public Boolean deleteLibrarian(int id) {
 		return adminDao.deleteLibrarian(id);
 	}
 

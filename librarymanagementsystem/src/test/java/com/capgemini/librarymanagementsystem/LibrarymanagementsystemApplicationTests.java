@@ -15,7 +15,7 @@ class LibrarymanagementsystemApplicationTests {
 
 	@Test 
 	void deleteLibrarian() { 
-		Boolean bb = test.deleteLibrarian("1001");
+		Boolean bb = test.deleteLibrarian(1001);
 		assertEquals(true, bb);
 	}
 

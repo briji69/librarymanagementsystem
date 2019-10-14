@@ -8,7 +8,7 @@ import java.util.Random;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -17,14 +17,15 @@ import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
 import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
 import com.capgemini.librarymanagementsystem.dto.BooksTransaction;
 import com.capgemini.librarymanagementsystem.dto.Users;
+import com.capgemini.librarymanagementsystem.exception.BookNotFoundException;
 
 @Repository
 public class LibrarianDaoImpl implements LibrarianDao {
 
-	private static EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("TestPersistence");
-
+	@PersistenceUnit
+	EntityManagerFactory entityManagerFactory;
 	@Override
-	public BooksInventoryInfo addBook(BooksInventoryInfo book) {
+	public BooksInventoryInfo addBook(BooksInventoryInfo book) throws BookNotFoundException {
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
 			EntityTransaction entityTransaction=entityManager.getTransaction();
@@ -35,14 +36,14 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			entityTransaction.commit();
 			entityManager.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new BookNotFoundException("unable to add book");
 		}
 		return book;
 
 	}
 
 	@Override
-	public boolean deleteBook(int bookId) {
+	public boolean deleteBook(int bookId) throws BookNotFoundException {
 		boolean isDeleted=false;
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
@@ -54,7 +55,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			entityManager.close();
 			isDeleted=true;					
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new BookNotFoundException("unable to delete book");
 		}
 		return isDeleted;
 	}
@@ -62,7 +63,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 
 
 	@Override
-	public List<BooksInventoryInfo> getAllBooks() {
+	public List<BooksInventoryInfo> getAllBooks() throws BookNotFoundException{
 		List<BooksInventoryInfo> bookList=null;
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
@@ -70,7 +71,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			bookList=query.getResultList();
 			entityManager.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new BookNotFoundException("unable to find books");
 		}
 		return bookList;
 	}
@@ -78,7 +79,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 
 
 	@Override
-	public List<Users> showAllUsers() {
+	public List<Users> showAllUsers()  {
 		List<Users> userList=null;
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();

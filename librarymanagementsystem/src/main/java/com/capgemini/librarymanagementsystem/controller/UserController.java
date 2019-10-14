@@ -87,4 +87,20 @@ public class UserController {
 		}
 		return response;
 	}//end of deleteBook()
+	
+	@DeleteMapping("librarian/payFine/{transactionId}")
+	public BookResponse payFine(@PathVariable("transactionId") int transactionId) {
+		
+		BookResponse response = new BookResponse();
+		if(userService.payFine(transactionId)) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setDescription("fine paid  Successfully");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("Unable to payfine");
+		}
+		return response;
+	}//end of payfine()
 }

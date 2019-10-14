@@ -17,5 +17,6 @@ public interface UserService {
 	
 	//to return
 	public boolean returnBook(int transactionId);
-	
+	public boolean payFine(int transactionId);
+
 }

@@ -6,19 +6,27 @@ import java.util.Random;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.security.auth.login.FailedLoginException;
 
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.librarymanagementsystem.dto.Users;
+import com.capgemini.librarymanagementsystem.exception.FailedToAddException;
+import com.capgemini.librarymanagementsystem.exception.FailedToDeleteException;
+import com.capgemini.librarymanagementsystem.exception.LoginException;
+
+import ch.qos.logback.core.LogbackException;
 @Repository
 public class AdminDaoImpl implements AdminDao {
+	
+	@PersistenceUnit
+	EntityManagerFactory entityManagerFactory;
 	static int id;
-	private static EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("TestPersistence");
 	@Override
-	public Users login(Users user) {
+	public Users login(Users user) throws LoginException {
 		Users user1 = null;
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
@@ -31,12 +39,12 @@ public class AdminDaoImpl implements AdminDao {
 				return user1;
 			
 		} catch (Exception e) {
-			return null;
+			throw new LoginException("Failed to login");
 		}	
 	}
 
 	@Override
-	public Users addLibrarian(Users user) {
+	public Users addLibrarian(Users user) throws FailedToAddException {
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
 			EntityTransaction entityTransaction=entityManager.getTransaction();
@@ -48,13 +56,13 @@ public class AdminDaoImpl implements AdminDao {
 			entityTransaction.commit();
 			entityManager.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new FailedToAddException("failed to add");
 		}
 		return user;
 	}
 
 	@Override
-	public Boolean updateLibrarian(Users user) {
+	public Boolean updateLibrarian(Users user) throws FailedToAddException{
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
 			EntityTransaction entityTransaction=entityManager.getTransaction();
@@ -70,13 +78,13 @@ public class AdminDaoImpl implements AdminDao {
 				return true;
 			}		
 		} catch (Exception e) {
-			return false;	
+			throw new FailedToAddException("failed to update ");
 		}
 		return false;
 	}
 
 	@Override
-	public Boolean deleteLibrarian(String userId) {
+	public Boolean deleteLibrarian(int userId) throws FailedToDeleteException{
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
 			EntityTransaction entityTransaction=entityManager.getTransaction();
@@ -89,7 +97,7 @@ public class AdminDaoImpl implements AdminDao {
 				return true;
 			}
 		} catch (Exception e) {
-			return false;
+			throw new FailedToDeleteException("failed to delete");
 		}
 		return false;
 	}

@@ -37,4 +37,10 @@ public class UserServiceImpl implements UserService{
 		return userDao.recievedBook();
 	}
 
+
+	@Override
+	public boolean payFine(int transactionId) {
+		return userDao.payFine(transactionId);
+	}
+
 }

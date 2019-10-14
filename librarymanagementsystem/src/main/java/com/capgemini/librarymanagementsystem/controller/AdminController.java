@@ -53,7 +53,7 @@ public class AdminController {
 		return response;
 	}//end of updateLibrarian()
 	@DeleteMapping("admin/deleteLibrarian/{userId}")
-	public UserResponse deleteLibrarian(@PathVariable("userId") String userId) {
+	public UserResponse deleteLibrarian(@PathVariable("userId") int userId) {
 
 		UserResponse response = new UserResponse();
 		if(adminService.deleteLibrarian(userId)) {
@@ -75,12 +75,12 @@ public class AdminController {
 		if(libs!=null) {
 			response.setStatusCode(201);
 			response.setMessage("Success");
-			response.setDescription("user Deleted Successfully");
+			response.setDescription("Fetched User data successfully");
 			response.setUserList(libs);
 		}else {
 			response.setStatusCode(401);
 			response.setMessage("Failed");
-			response.setDescription("Unable to Delete");
+			response.setDescription("Unable to fetch");
 		}
 		return response;
 	}//end of deleteLibrarian()
