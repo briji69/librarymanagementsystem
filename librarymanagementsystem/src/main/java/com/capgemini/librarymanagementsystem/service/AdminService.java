@@ -1,8 +1,6 @@
 package com.capgemini.librarymanagementsystem.service;
 
-import java.util.List;
 
-import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
 import com.capgemini.librarymanagementsystem.dto.Users;
 
 public interface AdminService {
