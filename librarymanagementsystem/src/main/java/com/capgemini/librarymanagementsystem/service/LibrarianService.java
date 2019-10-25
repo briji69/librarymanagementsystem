@@ -8,10 +8,9 @@ import com.capgemini.librarymanagementsystem.dto.Users;
 
 public interface LibrarianService {
 	//to perform CURD operation
-	public BooksInventoryInfo addBooks(BooksInventoryInfo book);
-	public boolean deleteBooks(BooksInventoryInfo book);
+	public BooksInventoryInfo addBook(BooksInventoryInfo book);
+	public boolean deleteBook(int bookId);
 	public BooksInventoryInfo updateBook(BooksInventoryInfo book);
-	public List<BooksInventoryInfo> getAllBooks();
 
 	// to issue and return book 
 	public BooksInventoryInfo toIssueBook(int bookId);
@@ -21,7 +20,8 @@ public interface LibrarianService {
 	public List<BooksRegistration> getIssuedBookList();
 
 	// to show all the books and users  
-	public List<BooksInventoryInfo> showAllBooks();
 	public List<Users> showAllUsers();
+	public List<BooksInventoryInfo> getAllBooks();
+
 
 }

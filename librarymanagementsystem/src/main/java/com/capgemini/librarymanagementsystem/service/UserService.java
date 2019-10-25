@@ -10,7 +10,7 @@ public interface UserService {
 	public List<BooksInventoryInfo> searchBooks(String bookName, String firstAuthor);
 	
 	// to send and receive 
-	public BooksInventoryInfo requestToBook(int bookId);
+	public BooksInventoryInfo requestToBook(String bookName);
 	public BooksInventoryInfo receiveBook();
 	
 	//to return

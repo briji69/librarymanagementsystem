@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public BooksInventoryInfo requestToBook(int bookId) {
-		return userDao.requestToBook(bookId);
+	public BooksInventoryInfo requestToBook(String bookName) {
+		return userDao.requestToBook(bookName);
 	}
 
 	@Override

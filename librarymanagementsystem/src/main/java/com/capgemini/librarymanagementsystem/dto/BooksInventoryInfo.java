@@ -1,11 +1,32 @@
 package com.capgemini.librarymanagementsystem.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "bookinventoryinfo")
 public class BooksInventoryInfo {
+	@Id
+	@Column(name = "book_id")
 	private int bookId;
+	@Column(name = "book_name")
 	private String bookName;
+	@Column(name = "author1")
 	private String firstAuthor;
+	@Column(name = "author2")
 	private String secondAuthor;
+	@Column(name = "year_of_publication")
 	private int yearOfPublication;
+	@Column
+	private String publisher;
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
 	public int getBookId() {
 		return bookId;
 	}
@@ -39,8 +60,10 @@ public class BooksInventoryInfo {
 	@Override
 	public String toString() {
 		return "BooksInventoryInfo [bookId=" + bookId + ", bookName=" + bookName + ", firstAuthor=" + firstAuthor
-				+ ", secondAuthor=" + secondAuthor + ", yearOfPublication=" + yearOfPublication + "]";
+				+ ", secondAuthor=" + secondAuthor + ", yearOfPublication=" + yearOfPublication + ", publisher="
+				+ publisher + "]";
 	}
+	
 	
 	
 }

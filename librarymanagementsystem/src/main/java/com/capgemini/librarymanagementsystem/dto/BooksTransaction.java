@@ -2,11 +2,23 @@ package com.capgemini.librarymanagementsystem.dto;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name="booktransaction")
 public class BooksTransaction {
+	@Id
+	@Column(name="transaction_id")
 	private int transactionId;
+	@Column(name="registration_id")
 	private int registrationId;
+	@Column(name="issue_date")
 	private Date issueDate;
+	@Column(name="return_date")
 	private Date returnDate;
+	@Column(name="fine")
 	private int fine;
 	public int getTransactionId() {
 		return transactionId;

@@ -1,21 +1,30 @@
 package com.capgemini.librarymanagementsystem.dto;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "")
+@Table(name="userinfo")
 public class Users {
 
-	private int userId;
+	@Id
+	@Column(name="user_id")
+	private String userId;
+	@Column(name="user_name")
 	private String userName;
+	@Column(name="email_id")
 	private String emailId;
+	@Column(name="password")
 	private String password;
+	@Column(name="type")
 	private String type;
-	public int getUserId() {
+	
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	public String getUserName() {

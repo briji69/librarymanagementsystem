@@ -15,13 +15,13 @@ public class LibrarianServiceImpl implements LibrarianService{
 	@Autowired
 	LibrarianDao librarianDao;
 	@Override
-	public BooksInventoryInfo addBooks(BooksInventoryInfo book) {
-		return librarianDao.addBooks(book);
+	public BooksInventoryInfo addBook(BooksInventoryInfo book) {
+		return librarianDao.addBook(book);
 	}
 
 	@Override
-	public boolean deleteBooks(BooksInventoryInfo book) {
-		return librarianDao.deleteBooks(book);
+	public boolean deleteBook(int bookId) {
+		return librarianDao.deleteBook(bookId);
 	}
 
 	@Override
@@ -49,10 +49,7 @@ public class LibrarianServiceImpl implements LibrarianService{
 		return librarianDao.getIssuedBookList();
 	}
 
-	@Override
-	public List<BooksInventoryInfo> showAllBooks() {
-		return librarianDao.showAllBooks();
-	}
+	
 
 	@Override
 	public List<Users> showAllUsers() {

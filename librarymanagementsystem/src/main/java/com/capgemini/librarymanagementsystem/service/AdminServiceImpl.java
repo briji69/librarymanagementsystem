@@ -9,23 +9,43 @@ import com.capgemini.librarymanagementsystem.dto.Users;
 public class AdminServiceImpl implements AdminService{
 	@Autowired
 	AdminDao adminDao;
+	Validations valid=new Validations();
 	@Override
-	public Users login(int userId, String Password) {
-		return adminDao.login(userId, Password);
+	public Users login(Users user) {
+		return adminDao.login(user);
 	}
 
 	@Override
 	public Users addLibrarian(Users user) {
-		return adminDao.addLibrarian(user);
+	if(valid.validateId(user.getUserId())){
+		if(valid.validateEmail(user.getEmailId())) {		
+				return adminDao.addLibrarian(user);
+		}else {
+			System.out.println("enter the correct email (abc@xyz.com)");
+		}
+	}else {
+		System.out.println("enter the correct id");
+	}
+	return null;
+		
 	}
 
 	@Override
-	public Users updateLibrarian(Users user) {
-		return adminDao.updateLibrarian(user);
+	public Boolean updateLibrarian(Users user) {
+		if(valid.validateId(user.getUserId())){
+			if(valid.validateEmail(user.getEmailId())) {			
+					return adminDao.updateLibrarian(user);
+			}else {
+				System.out.println("enter the correct email (abc@xyz.com)");
+			}
+		}else {
+			System.out.println("enter the correct id");
+		}
+		return null;
 	}
 
 	@Override
-	public Users deleteLibrarian(int id) {
+	public Boolean deleteLibrarian(String id) {
 		return adminDao.deleteLibrarian(id);
 	}
 
