@@ -27,7 +27,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			entityTransaction.commit();
 			entityManager.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			return null;
 		}
 		return book;
 
@@ -67,9 +67,10 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			return null;
 		}
-		return book;	}
+		return book;	
+	}
 
 	@Override
 	public List<BooksInventoryInfo> getAllBooks() {
@@ -82,7 +83,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			entityManager.getTransaction().commit();
 			entityManager.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			return null;
 		}
 		return bookList;
 	}
@@ -100,7 +101,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			entityManager.getTransaction().commit();
 			entityManager.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			return null;
 		}
 		return userList;	
 	}
@@ -115,10 +116,11 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			entityTransaction.commit();
 			entityManager.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			return null;
 		}
 		return user;	
 	}
+	
 	@Override
 	public BooksInventoryInfo toIssueBook(int bookId) {
 		return null;
