@@ -28,8 +28,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public BooksInventoryInfo receiverBook() {
-		return userDao.receiverBook();
+	public BooksInventoryInfo receiveBook() {
+		return userDao.receiveBook();
 	}
 
 	@Override

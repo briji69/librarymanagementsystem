@@ -11,7 +11,7 @@ public interface UserDao {
 		
 		// to send and receive 
 		public BooksInventoryInfo requestToBook(int bookId);
-		public BooksInventoryInfo receiverBook();
+		public BooksInventoryInfo receiveBook();
 		
 		//to return
 		public BooksInventoryInfo returnBook(int bookId);

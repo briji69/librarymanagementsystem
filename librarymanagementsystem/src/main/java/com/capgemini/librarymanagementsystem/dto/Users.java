@@ -1,5 +1,10 @@
 package com.capgemini.librarymanagementsystem.dto;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "")
 public class Users {
 
 	private int userId;

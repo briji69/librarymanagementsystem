@@ -24,7 +24,7 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public BooksInventoryInfo receiverBook() {
+	public BooksInventoryInfo receiveBook() {
 		return null;
 	}
 
