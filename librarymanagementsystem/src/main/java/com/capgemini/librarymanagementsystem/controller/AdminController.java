@@ -17,9 +17,10 @@ import com.capgemini.librarymanagementsystem.util.UserResponse;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class AdminController {
+	
 	@Autowired
 	AdminService adminService;
-
+	
 	@PostMapping("admin/addLibrarian")
 	public UserResponse addLibrarian(@RequestBody Users user) {
 		UserResponse response = new UserResponse();
@@ -68,9 +69,7 @@ public class AdminController {
 	}//end of deleteLibrarian()
 	@PostMapping(path = "/login",consumes = MediaType.APPLICATION_JSON_VALUE)
 	public UserResponse adminLogin(@RequestBody Users user) {
-
 		user =  adminService.login(user);
-
 		UserResponse response = new UserResponse();
 		if(user!=null) {
 			response.setStatusCode(201);

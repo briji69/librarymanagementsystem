@@ -24,7 +24,7 @@ public class Validations {
 	}	
 	public Boolean validatePassword(String password) {
 		
-		Pattern pat = Pattern.compile("((?=.\\d)(?=.[a-z])(?=.[A-Z])(?=.[@#$%]).{6,7})");
+		Pattern pat = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,7})");
 		Matcher	mat = pat.matcher(password);
 		if(mat.matches()){
 			return true;

@@ -83,7 +83,7 @@ public class AdminDaoImpl implements AdminDao {
 				return true;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			return false;
 		}
 		return false;
 	}
