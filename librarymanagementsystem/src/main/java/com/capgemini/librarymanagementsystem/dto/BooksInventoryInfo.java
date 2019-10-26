@@ -21,12 +21,9 @@ public class BooksInventoryInfo {
 	private int yearOfPublication;
 	@Column
 	private String publisher;
-	public String getPublisher() {
-		return publisher;
-	}
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
+	@Column(name = "available_no")
+	private int availableNo;
+
 	public int getBookId() {
 		return bookId;
 	}
@@ -57,13 +54,25 @@ public class BooksInventoryInfo {
 	public void setYearOfPublication(int yearOfPublication) {
 		this.yearOfPublication = yearOfPublication;
 	}
+	public String getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+	public int getAvailableNo() {
+		return availableNo;
+	}
+	public void setAvailableNo(int availableNo) {
+		this.availableNo = availableNo;
+	}	
 	@Override
 	public String toString() {
 		return "BooksInventoryInfo [bookId=" + bookId + ", bookName=" + bookName + ", firstAuthor=" + firstAuthor
 				+ ", secondAuthor=" + secondAuthor + ", yearOfPublication=" + yearOfPublication + ", publisher="
-				+ publisher + "]";
+				+ publisher + ", availableNo=" + availableNo + "]";
 	}
-	
-	
-	
+
+
+
 }

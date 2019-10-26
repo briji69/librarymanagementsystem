@@ -1,6 +1,8 @@
 package com.capgemini.librarymanagementsystem.dao;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,7 +14,9 @@ import org.springframework.stereotype.Repository;
 
 import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
 import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
+import com.capgemini.librarymanagementsystem.dto.BooksTransaction;
 import com.capgemini.librarymanagementsystem.dto.Users;
+
 @Repository
 public class LibrarianDaoImpl implements LibrarianDao {
 	private static EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("TestPersistence");
@@ -64,12 +68,13 @@ public class LibrarianDaoImpl implements LibrarianDao {
 				book1.setYearOfPublication(book.getYearOfPublication());
 				entityTransaction.commit();
 				entityManager.close();
+				return book;
 			}
 		}
 		catch (Exception e) {
 			return null;
 		}
-		return book;	
+		return null;	
 	}
 
 	@Override
@@ -112,30 +117,54 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
 			EntityTransaction entityTransaction=entityManager.getTransaction();
 			entityTransaction.begin();
+			user.setType("student");
 			entityManager.persist(user);
 			entityTransaction.commit();
 			entityManager.close();
+			return user;
+		} catch (Exception e) {
+			return null;
+		}	
+	}
+
+	@Override
+	public BooksTransaction toIssueBook(int registrationId) {
+
+		try {
+			EntityManager entityManager=entityManagerFactory.createEntityManager();
+			
+				BooksRegistration reg=entityManager.find(BooksRegistration.class, registrationId);
+				EntityTransaction entityTransaction=entityManager.getTransaction();
+				entityTransaction.begin();			
+				BooksTransaction transaction=new BooksTransaction();
+				transaction.setIssueDate(new Date());
+				transaction.setRegistrationId(reg.getRegistrationId());
+				Random random=new Random();
+				int transactionId=random.nextInt(1000000);
+				transaction.setTransactionId(transactionId);
+				entityManager.remove(reg);
+				entityManager.persist(transaction);
+				entityTransaction.commit();
+				entityManager.close();
+			return transaction;
 		} catch (Exception e) {
 			return null;
 		}
-		return user;	
-	}
-	
-	@Override
-	public BooksInventoryInfo toIssueBook(int bookId) {
-		return null;
 	}
 
-	@Override
-	public BooksInventoryInfo returnBook(int bookId) {
-		return null;
-	}
 
 	@Override
-	public List<BooksRegistration> getIssuedBookList() {
-		return null;
+	public List<BooksTransaction> getIssuedBookList() {
+		List<BooksTransaction> bookList=null;
+		try {
+			EntityManager entityManager=entityManagerFactory.createEntityManager();
+			TypedQuery<BooksTransaction> query=entityManager.createQuery("FROM BooksTransaction", BooksTransaction.class);
+			bookList=query.getResultList();
+			entityManager.close();
+			return bookList;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 }
-
-

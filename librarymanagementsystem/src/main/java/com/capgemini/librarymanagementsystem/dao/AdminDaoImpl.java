@@ -12,7 +12,7 @@ import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
 import com.capgemini.librarymanagementsystem.dto.Users;
 @Repository
 public class AdminDaoImpl implements AdminDao {
-
+	static String id;
 	private static EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("TestPersistence");
 	@Override
 	public Users login(Users user) {
@@ -24,6 +24,7 @@ public class AdminDaoImpl implements AdminDao {
 			query.setParameter("password",user.getPassword());
 			user1=(Users) query.getSingleResult();
 			entityManager.close();
+			id=user.getUserId();
 				return user1;
 			
 		} catch (Exception e) {

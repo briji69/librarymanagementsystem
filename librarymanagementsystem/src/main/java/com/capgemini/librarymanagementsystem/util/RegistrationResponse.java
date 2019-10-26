@@ -6,14 +6,13 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
+import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-@XmlRootElement(name= "book-response")
+@XmlRootElement(name= "registration-response")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class BookResponse {
+public class RegistrationResponse {
 	@XmlElement(name="status-code")
 	private int statusCode;
 	@XmlElement
@@ -21,9 +20,9 @@ public class BookResponse {
 	@XmlElement
 	private String description;
 	@XmlElement
-	private BooksInventoryInfo book;
+	private BooksRegistration registration;
 	@XmlElement
-	private List<BooksInventoryInfo> bookList;
+	private List<BooksRegistration> registrationList;
 	public int getStatusCode() {
 		return statusCode;
 	}
@@ -42,17 +41,17 @@ public class BookResponse {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public BooksInventoryInfo getBook() {
-		return book;
+	public BooksRegistration getRegistration() {
+		return registration;
 	}
-	public void setBook(BooksInventoryInfo book) {
-		this.book = book;
+	public void setRegistration(BooksRegistration registration) {
+		this.registration = registration;
 	}
-	public List<BooksInventoryInfo> getBookList() {
-		return bookList;
+	public List<BooksRegistration> getRegistrationList() {
+		return registrationList;
 	}
-	public void setBookList(List<BooksInventoryInfo> bookList) {
-		this.bookList = bookList;
+	public void setRegistrationList(List<BooksRegistration> registrationList) {
+		this.registrationList = registrationList;
 	}
 	
 }
