@@ -2,10 +2,21 @@ package com.capgemini.librarymanagementsystem.dto;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "bookregistration")
 public class BooksRegistration {
+	@Id
+	@Column(name = "registeration_id")
 	private int registrationId;
-	private int userId;
+	@Column(name ="user_id")
+	private String userId;
+	@Column(name ="book_id")
 	private int bookId;
+	@Column(name="registeration_date")
 	private Date registrationDate;
 	public int getRegistrationId() {
 		return registrationId;
@@ -13,10 +24,11 @@ public class BooksRegistration {
 	public void setRegistrationId(int registrationId) {
 		this.registrationId = registrationId;
 	}
-	public int getUserId() {
+	
+	public String getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 	public int getBookId() {
