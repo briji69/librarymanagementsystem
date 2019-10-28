@@ -1,6 +1,8 @@
 package com.capgemini.librarymanagementsystem.service;
 
 
+import java.util.List;
+
 import com.capgemini.librarymanagementsystem.dto.Users;
 
 public interface AdminService {
@@ -13,5 +15,7 @@ public interface AdminService {
 	public Boolean updateLibrarian(Users user);
 	public Boolean deleteLibrarian(String id);
 		
+	List<Users> showAllLibrarians();
+
 	
 }

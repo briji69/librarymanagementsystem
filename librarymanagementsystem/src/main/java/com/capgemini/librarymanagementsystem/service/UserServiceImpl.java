@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public BooksInventoryInfo returnBook(int transactionId) {
+	public boolean returnBook(int transactionId) {
 		return userDao.returnBook(transactionId);
 	}
 

@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
 import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
-import com.capgemini.librarymanagementsystem.dto.Users;
 import com.capgemini.librarymanagementsystem.service.UserService;
 import com.capgemini.librarymanagementsystem.util.BookResponse;
 import com.capgemini.librarymanagementsystem.util.RegistrationResponse;
-import com.capgemini.librarymanagementsystem.util.UserResponse;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 @RestController
 public class UserController {
 	@Autowired

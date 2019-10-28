@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.librarymanagementsystem.dao.LibrarianDao;
 import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
-import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
 import com.capgemini.librarymanagementsystem.dto.BooksTransaction;
 import com.capgemini.librarymanagementsystem.dto.Users;
 @Service
@@ -27,10 +26,6 @@ public class LibrarianServiceImpl implements LibrarianService{
 		return librarianDao.deleteBook(bookId);
 	}
 
-	@Override
-	public BooksInventoryInfo updateBook(BooksInventoryInfo book) {
-		return librarianDao.updateBook(book);
-	}
 
 	@Override
 	public List<BooksInventoryInfo> getAllBooks() {
@@ -38,8 +33,8 @@ public class LibrarianServiceImpl implements LibrarianService{
 	}
 
 	@Override
-	public BooksTransaction toIssueBook(int registrationId) {
-		return librarianDao.toIssueBook(registrationId);
+	public BooksTransaction toIssueBook(int registrationId,int userId) {
+		return librarianDao.toIssueBook(registrationId,userId);
 	}
 
 	@Override
@@ -57,18 +52,10 @@ public class LibrarianServiceImpl implements LibrarianService{
 	@Override
 	public Users addUser(Users user) {
 		
-		if(valid.validateId(user.getUserId())){
 			if(valid.validateEmail(user.getEmailId())) {		
 				if(valid.validatePassword(user.getPassword())){
 					return librarianDao.addUser(user);
-				}else {
-					System.out.println("enter in right format(Abc@123) and should be of 7 char");
 				}
-			}else {
-				System.out.println("enter the correct email (abc@xyz.com)");
-			}
-		}else {
-			System.out.println("enter the correct id");
 		}
 		return null;
 	}

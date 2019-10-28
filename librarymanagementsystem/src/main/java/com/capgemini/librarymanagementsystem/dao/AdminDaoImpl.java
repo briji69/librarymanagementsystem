@@ -1,18 +1,21 @@
 package com.capgemini.librarymanagementsystem.dao;
 
+import java.util.List;
+import java.util.Random;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
 import com.capgemini.librarymanagementsystem.dto.Users;
 @Repository
 public class AdminDaoImpl implements AdminDao {
-	static String id;
+	static int id;
 	private static EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("TestPersistence");
 	@Override
 	public Users login(Users user) {
@@ -39,11 +42,13 @@ public class AdminDaoImpl implements AdminDao {
 			EntityTransaction entityTransaction=entityManager.getTransaction();
 			entityTransaction.begin();
 			user.setType("lib");
+			Random random=new Random();
+			user.setUserId(random.nextInt(10000));
 			entityManager.persist(user);
 			entityTransaction.commit();
 			entityManager.close();
 		} catch (Exception e) {
-			return null;
+			e.printStackTrace();
 		}
 		return user;
 	}
@@ -87,6 +92,22 @@ public class AdminDaoImpl implements AdminDao {
 			return false;
 		}
 		return false;
+	}
+	@Override
+	public List<Users> showAllLibrarians() {
+		List<Users> userList=null;
+		try {
+			EntityManager entityManager=entityManagerFactory.createEntityManager();
+			entityManager.getTransaction().begin();
+			TypedQuery<Users> query=entityManager.createQuery("FROM Users where type='lib'", Users.class);
+			userList=query.getResultList();
+			entityManager.getTransaction().commit();
+			entityManager.close();
+			return userList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userList;	
 	}
 
 }

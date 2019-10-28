@@ -4,15 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validations {
-	public Boolean validateId(String id) {
-		Pattern pat = Pattern.compile("\\d+");
-		Matcher mat = pat.matcher(id);
-		if(mat.matches()){
-			return true;
-		}else{
-			return false;
-		}
-	}
 	public Boolean validateEmail(String email) {
 		Pattern pat = Pattern.compile("\\w+\\@\\w+\\.\\w+");
 		Matcher	mat = pat.matcher(email);

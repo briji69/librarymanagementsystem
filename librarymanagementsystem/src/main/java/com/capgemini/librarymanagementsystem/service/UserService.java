@@ -14,6 +14,6 @@ public interface UserService {
 	public BooksRegistration requestToBook(int bookId);
 	
 	//to return
-	public BooksInventoryInfo returnBook(int transactionId);
+	public boolean returnBook(int transactionId);
 	
 }

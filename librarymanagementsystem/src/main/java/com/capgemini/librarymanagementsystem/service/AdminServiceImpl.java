@@ -1,5 +1,7 @@
 package com.capgemini.librarymanagementsystem.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,18 +24,10 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public Users addLibrarian(Users user) {
-		if(valid.validateId(user.getUserId())){
-			if(valid.validateEmail(user.getEmailId())) {		
-				if(valid.validatePassword(user.getPassword())){
-					return adminDao.addLibrarian(user);
-				}else {
-					System.out.println("enter in right format(Abc@123) and should be of 7 char");
-				}
-			}else {
-				System.out.println("enter the correct email (abc@xyz.com)");
+		if(valid.validateEmail(user.getEmailId())) {		
+			if(valid.validatePassword(user.getPassword())){
+				return adminDao.addLibrarian(user);
 			}
-		}else {
-			System.out.println("enter the correct id");
 		}
 		return null;
 
@@ -41,18 +35,10 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public Boolean updateLibrarian(Users user) {
-		if(valid.validateId(user.getUserId())){
-			if(valid.validateEmail(user.getEmailId())) {			
-				if(valid.validatePassword(user.getPassword())){
-					return adminDao.updateLibrarian(user);
-				}else {
-					System.out.println("enter in right format(Abc@123) and should be of 7 char");
-				}
-			}else {
-				System.out.println("enter the correct email (abc@xyz.com)");
+		if(valid.validateEmail(user.getEmailId())) {			
+			if(valid.validatePassword(user.getPassword())){
+				return adminDao.updateLibrarian(user);
 			}
-		}else {
-			System.out.println("enter the correct id");
 		}
 		return null;
 	}
@@ -60,6 +46,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Boolean deleteLibrarian(String id) {
 		return adminDao.deleteLibrarian(id);
+	}
+
+	@Override
+	public List<Users> showAllLibrarians() {
+		return adminDao.showAllLibrarians();
 	}
 
 }

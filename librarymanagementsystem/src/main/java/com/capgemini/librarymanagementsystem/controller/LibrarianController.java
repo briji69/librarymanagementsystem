@@ -8,17 +8,18 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
+import com.capgemini.librarymanagementsystem.dto.BooksTransaction;
 import com.capgemini.librarymanagementsystem.dto.Users;
 import com.capgemini.librarymanagementsystem.service.LibrarianService;
 import com.capgemini.librarymanagementsystem.util.BookResponse;
+import com.capgemini.librarymanagementsystem.util.TransactionResponse;
 import com.capgemini.librarymanagementsystem.util.UserResponse;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*")
 @RestController
 public class LibrarianController {
 
@@ -56,22 +57,7 @@ public class LibrarianController {
 		}
 		return response;
 	}//end of deleteBook()
-	@PutMapping("librarian/updateBook")
-	public BookResponse updateBook(@RequestBody BooksInventoryInfo book) {	
-		BookResponse response = new BookResponse();
-		BooksInventoryInfo info=librarianService.updateBook(book);
-		if(info!=null) {
-			response.setStatusCode(201);
-			response.setMessage("Success");
-			response.setDescription("Profile Updated Successfully");
-			response.setBook(info);
-		}else {
-			response.setStatusCode(401);
-			response.setMessage("Failed");
-			response.setDescription("Unable to update the profile");
-		}
-		return response;
-	}//end of updateBook()
+	
 	@GetMapping("librarian/getAllBooks")
 	public BookResponse getAllBooks() {	
 		BookResponse response = new BookResponse();
@@ -88,6 +74,22 @@ public class LibrarianController {
 		}
 		return response;
 	}//end of getAllBooks()
+	@GetMapping("librarian/getIssueBooks")
+	public TransactionResponse getIssueBooks() {	
+		TransactionResponse response = new TransactionResponse();
+		List<BooksTransaction> bookList=librarianService.getIssuedBookList();
+		if(bookList!=null) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setDescription("Books Fetched Successfully");
+			response.setTransactionList(bookList);
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("No Books to Get");
+		}
+		return response;
+	}//end of getIssueBooks()
 	@GetMapping("librarian/showAllUsers")
 	public UserResponse showAllUsers() {	
 		UserResponse response = new UserResponse();

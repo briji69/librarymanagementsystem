@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
 import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
+import com.capgemini.librarymanagementsystem.dto.BooksTransaction;
 
 @Repository
 public class UserDaoImpl implements UserDao{
@@ -19,7 +20,6 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public List<BooksInventoryInfo> searchBooks(String bookName) {
 		List<BooksInventoryInfo> bookList=null;
-
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
 			TypedQuery<BooksInventoryInfo> query=entityManager.createQuery("FROM BooksInventoryInfo WHERE bookName=:name", BooksInventoryInfo.class);
@@ -73,12 +73,20 @@ public class UserDaoImpl implements UserDao{
 			e.printStackTrace();
 		}
 		return null;
-		
 	}
 	@Override
-	public BooksInventoryInfo returnBook(int transactionId) {
-		
-		return null;
+	public boolean returnBook(int transactionId) {
+		try {
+			EntityManager entityManager=entityManagerFactory.createEntityManager();
+			entityManager.getTransaction().begin();
+			BooksTransaction transaction=entityManager.find(BooksTransaction.class, transactionId);
+			entityManager.remove(transaction);
+			entityManager.getTransaction().commit();
+			entityManager.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
-
 }
