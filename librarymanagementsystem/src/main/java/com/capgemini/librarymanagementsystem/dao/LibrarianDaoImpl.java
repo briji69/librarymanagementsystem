@@ -35,20 +35,13 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		return null;
 	}
 
-	@Override
-	public BooksInventoryInfo returnBook(int bookId) {
-		return null;
-	}
+	
 
 	@Override
 	public List<BooksRegistration> getIssuedBookList() {
 		return null;
 	}
 
-	@Override
-	public List<BooksInventoryInfo> showAllBooks() {
-		return null;
-	}
 
 	@Override
 	public List<Users> showAllUsers() {

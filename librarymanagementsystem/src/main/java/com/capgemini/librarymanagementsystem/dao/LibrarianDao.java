@@ -15,13 +15,11 @@ public interface LibrarianDao {
 
 		// to issue and return book 
 		public BooksInventoryInfo toIssueBook(int bookId);
-		public BooksInventoryInfo returnBook(int bookId);
 
 		// to check issued Books
 		public List<BooksRegistration> getIssuedBookList();
 
 		// to show all the books and users  
-		public List<BooksInventoryInfo> showAllBooks();
 		public List<Users> showAllUsers();
 
 }

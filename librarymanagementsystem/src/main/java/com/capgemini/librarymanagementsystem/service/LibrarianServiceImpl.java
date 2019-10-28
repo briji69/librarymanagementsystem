@@ -40,23 +40,10 @@ public class LibrarianServiceImpl implements LibrarianService{
 	}
 
 	@Override
-	public BooksInventoryInfo returnBook(int bookId) {
-		return librarianDao.returnBook(bookId);
-	}
-
-	@Override
 	public List<BooksRegistration> getIssuedBookList() {
 		return librarianDao.getIssuedBookList();
 	}
 
-	@Override
-	public List<BooksInventoryInfo> showAllBooks() {
-		return librarianDao.showAllBooks();
-	}
 
-	@Override
-	public List<Users> showAllUsers() {
-		return librarianDao.showAllUsers();
-	}
-
+	
 }
