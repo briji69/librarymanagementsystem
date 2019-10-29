@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
+import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
 import com.capgemini.librarymanagementsystem.dto.BooksTransaction;
 import com.capgemini.librarymanagementsystem.dto.Users;
 import com.capgemini.librarymanagementsystem.service.LibrarianService;
 import com.capgemini.librarymanagementsystem.util.BookResponse;
+import com.capgemini.librarymanagementsystem.util.RegistrationResponse;
 import com.capgemini.librarymanagementsystem.util.TransactionResponse;
 import com.capgemini.librarymanagementsystem.util.UserResponse;
 
@@ -122,4 +124,51 @@ public class LibrarianController {
 		}
 		return response;
 	}//end of addUser()
+	@GetMapping("librarian/getRequestList")
+	public RegistrationResponse getRequestedBooks() {	
+		RegistrationResponse response = new RegistrationResponse();
+		List<BooksRegistration> bookList=librarianService.requestedList();
+		if(bookList!=null) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setDescription("Books Fetched Successfully");
+			response.setRegistrationList(bookList);
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("No Books to Get");
+		}
+		return response;
+	}//end of getRequestList()
+	@PostMapping("librarian/toIssueBook/{registrationId}/{userId}")
+	public TransactionResponse toIssueBook(@PathVariable("registrationId") int registrationId,@PathVariable("userId") int userId) {
+		TransactionResponse response = new TransactionResponse();
+		BooksTransaction book=librarianService.toIssueBook(registrationId, userId);
+		if(book!=null) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setDescription("Book Added Successfully");
+			response.setTransaction(book);
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("Unable to add book");
+		}
+		return response;
+	}//end of toIssueBook()
+	@DeleteMapping("librarian/toRejectRequest/{registrationId}")
+	public RegistrationResponse toRejectRequest(@PathVariable("registrationId") int registrationId) {
+
+		RegistrationResponse response = new RegistrationResponse();
+		if(librarianService.toRejectRequest(registrationId)) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setDescription("Request Deleted Successfully");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("Unable to Delete");
+		}
+		return response;
+	}//end of toRejectRequest()
 }

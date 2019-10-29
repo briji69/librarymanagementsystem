@@ -65,10 +65,8 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		List<BooksInventoryInfo> bookList=null;
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
-			entityManager.getTransaction().begin();
 			TypedQuery<BooksInventoryInfo> query=entityManager.createQuery("FROM BooksInventoryInfo", BooksInventoryInfo.class);
 			bookList=query.getResultList();
-			entityManager.getTransaction().commit();
 			entityManager.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -83,10 +81,8 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		List<Users> userList=null;
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
-			entityManager.getTransaction().begin();
 			TypedQuery<Users> query=entityManager.createQuery("FROM Users where type='student'", Users.class);
 			userList=query.getResultList();
-			entityManager.getTransaction().commit();
 			entityManager.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,6 +130,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			transaction.setReturnDate(returnDate);
 
 			entityManager.persist(transaction);
+			entityManager.remove(reg);
 			entityTransaction.commit();
 			entityManager.close();
 			return transaction;
@@ -173,6 +170,20 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			e.printStackTrace();
 		}
 		return isRejected;
+	}
+
+	@Override
+	public List<BooksRegistration> requestedList() {
+		List<BooksRegistration> userList=null;
+		try {
+			EntityManager entityManager=entityManagerFactory.createEntityManager();
+			TypedQuery<BooksRegistration> query=entityManager.createQuery("FROM BooksRegistration", BooksRegistration.class);
+			userList=query.getResultList();
+			entityManager.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return userList;	
 	}
 
 }

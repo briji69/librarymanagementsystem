@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.capgemini.librarymanagementsystem.dao.LibrarianDao;
 import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
+import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
 import com.capgemini.librarymanagementsystem.dto.BooksTransaction;
 import com.capgemini.librarymanagementsystem.dto.Users;
 @Service
@@ -58,6 +59,16 @@ public class LibrarianServiceImpl implements LibrarianService{
 				}
 		}
 		return null;
+	}
+
+	@Override
+	public boolean toRejectRequest(int registrationId) {
+		return librarianDao.toRejectRequest(registrationId);
+	}
+
+	@Override
+	public List<BooksRegistration> requestedList() {
+		return librarianDao.requestedList();
 	}
 
 }

@@ -30,28 +30,12 @@ public class UserDaoImpl implements UserDao{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return bookList;
+		return null;
 	}
 
-	@Override
-	public List<BooksInventoryInfo> searchBooks(String bookName, String firstAuthor) {
-		List<BooksInventoryInfo> bookList=null;
-		try {
-			EntityManager entityManager=entityManagerFactory.createEntityManager();
-			TypedQuery<BooksInventoryInfo> query=entityManager.createQuery("FROM BooksInventoryInfo WHERE bookName=:name and firstAuthor=:author", BooksInventoryInfo.class);
-			query.setParameter("name", bookName);
-			query.setParameter("author", firstAuthor);
-			bookList=query.getResultList();
-			entityManager.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return bookList;
-	}
 
 	@Override
 	public BooksRegistration requestToBook(int bookId) {
-		BooksRegistration info=null;
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
 			BooksInventoryInfo book=entityManager.find(BooksInventoryInfo.class, bookId);
@@ -67,7 +51,7 @@ public class UserDaoImpl implements UserDao{
 				entityManager.persist(registration);
 				entityManager.getTransaction().commit();
 				entityManager.close();
-				return info;
+				return registration;
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -88,5 +72,22 @@ public class UserDaoImpl implements UserDao{
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+
+	@Override
+	public List<BooksTransaction> recievedBook() {
+		List<BooksTransaction> bookList=null;
+		try {
+			EntityManager entityManager=entityManagerFactory.createEntityManager();
+			TypedQuery<BooksTransaction> query=entityManager.createQuery("FROM BooksTransaction WHERE userId=:id", BooksTransaction.class);
+			query.setParameter("id", AdminDaoImpl.id);
+			bookList=query.getResultList();
+			entityManager.close();
+			return bookList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bookList;
 	}
 }

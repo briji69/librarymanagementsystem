@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.capgemini.librarymanagementsystem.dao.UserDao;
 import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
 import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
+import com.capgemini.librarymanagementsystem.dto.BooksTransaction;
 @Service
 public class UserServiceImpl implements UserService{
 	@Autowired
@@ -18,10 +19,6 @@ public class UserServiceImpl implements UserService{
 		return userDao.searchBooks(bookName);
 	}
 
-	@Override
-	public List<BooksInventoryInfo> searchBooks(String bookName, String firstAuthor) {
-		return userDao.searchBooks(bookName, firstAuthor);
-	}
 
 	@Override
 	public BooksRegistration requestToBook(int bookId) {
@@ -32,6 +29,12 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean returnBook(int transactionId) {
 		return userDao.returnBook(transactionId);
+	}
+
+
+	@Override
+	public List<BooksTransaction> recievedBook() {
+		return userDao.recievedBook();
 	}
 
 }

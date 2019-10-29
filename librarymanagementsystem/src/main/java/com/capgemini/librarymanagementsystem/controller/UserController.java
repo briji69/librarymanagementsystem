@@ -12,47 +12,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
 import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
+import com.capgemini.librarymanagementsystem.dto.BooksTransaction;
 import com.capgemini.librarymanagementsystem.service.UserService;
 import com.capgemini.librarymanagementsystem.util.BookResponse;
 import com.capgemini.librarymanagementsystem.util.RegistrationResponse;
+import com.capgemini.librarymanagementsystem.util.TransactionResponse;
 
 @CrossOrigin(origins = "*")
 @RestController
 public class UserController {
 	@Autowired
 	UserService userService;
-	@GetMapping("user/searchBooksByName")
+	@GetMapping("user/searchBooks/{bookName}")
 	public BookResponse searchBooks(@PathVariable("bookName") String bookName ) {	
 		BookResponse response = new BookResponse();
 		List<BooksInventoryInfo> bookList=userService.searchBooks(bookName);
-		if(bookList!=null) {
+		if(bookList.isEmpty()) {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("No Books to Get");
+		}else {
 			response.setStatusCode(201);
 			response.setMessage("Success");
 			response.setDescription("Books Fetched Successfully");
 			response.setBookList(bookList);
-		}else {
-			response.setStatusCode(401);
-			response.setMessage("Failed");
-			response.setDescription("No Books to Get");
 		}
 		return response;
 	}//end of searchBooksByName()
-	@GetMapping("user/searchBooksByAuthor")
-	public BookResponse searchBooks(@PathVariable("bookName") String bookName,@PathVariable("firstAuthor") String firstAuthor ) {	
-		BookResponse response = new BookResponse();
-		List<BooksInventoryInfo> bookList=userService.searchBooks(bookName,firstAuthor);
-		if(bookList!=null) {
-			response.setStatusCode(201);
-			response.setMessage("Success");
-			response.setDescription("Books Fetched Successfully");
-			response.setBookList(bookList);
-		}else {
-			response.setStatusCode(401);
-			response.setMessage("Failed");
-			response.setDescription("No Books to Get");
-		}
-		return response;
-	}//end of searchBooksByAuthor()
 	@PostMapping("user/requestBook")
 	public RegistrationResponse requestBook(@RequestBody int bookId) {
 		RegistrationResponse response = new RegistrationResponse();
@@ -69,4 +55,20 @@ public class UserController {
 		}
 		return response;
 	}//end of requestBook()
+	@GetMapping("user/getRecievedBooks")
+	public TransactionResponse getIssueBooks() {	
+		TransactionResponse response = new TransactionResponse();
+		List<BooksTransaction> bookList=userService.recievedBook();
+		if(bookList!=null) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setDescription("Books Fetched Successfully");
+			response.setTransactionList(bookList);
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("No Books to Get");
+		}
+		return response;
+	}//end of getIssueBooks()
 }
