@@ -1,6 +1,7 @@
 package com.capgemini.librarymanagementsystem.dao;
 
-import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -19,7 +20,7 @@ import com.capgemini.librarymanagementsystem.dto.Users;
 
 @Repository
 public class LibrarianDaoImpl implements LibrarianDao {
-	
+
 	private static EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("TestPersistence");
 
 	@Override
@@ -111,8 +112,7 @@ public class LibrarianDaoImpl implements LibrarianDao {
 
 	@Override
 	public BooksTransaction toIssueBook(int registrationId,int userId) {
-		LocalDate dt=LocalDate.now();
-		LocalDate returnDate = dt.plusDays(14);
+		Date date=new Date();
 		BooksTransaction transaction=new BooksTransaction();
 		Random random=new Random();
 		int transactionId=random.nextInt(1000000);
@@ -122,13 +122,16 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			EntityTransaction entityTransaction=entityManager.getTransaction();
 			entityTransaction.begin();			
 
-			transaction.setIssueDate(dt);
+			transaction.setIssueDate(date);
 			transaction.setRegistrationId(reg.getRegistrationId());
 			transaction.setTransactionId(transactionId);
 			transaction.setBookId(reg.getBookId());
 			transaction.setUserId(userId);					
-			transaction.setReturnDate(returnDate);
 
+			Calendar calendar=Calendar.getInstance();
+			calendar.setTime(reg.getRegistrationDate());
+			calendar.add(Calendar.DATE, 14);
+			transaction.setReturnDate(calendar.getTime());
 			entityManager.persist(transaction);
 			entityManager.remove(reg);
 			entityTransaction.commit();

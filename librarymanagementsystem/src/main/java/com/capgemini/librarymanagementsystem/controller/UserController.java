@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,4 +72,19 @@ public class UserController {
 		}
 		return response;
 	}//end of getIssueBooks()
+	@DeleteMapping("librarian/returnBook/{transactionId}")
+	public BookResponse returnBook(@PathVariable("transactionId") int transactionId) {
+
+		BookResponse response = new BookResponse();
+		if(userService.returnBook(transactionId)) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setDescription("Book Return Successfully");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("Unable to Delete");
+		}
+		return response;
+	}//end of deleteBook()
 }

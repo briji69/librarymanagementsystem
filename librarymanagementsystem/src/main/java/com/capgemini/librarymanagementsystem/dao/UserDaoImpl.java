@@ -64,6 +64,16 @@ public class UserDaoImpl implements UserDao{
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
 			entityManager.getTransaction().begin();
 			BooksTransaction transaction=entityManager.find(BooksTransaction.class, transactionId);
+			int r=(int) new Date().getTime()/(1000*60*60*24);
+			int i=(int) transaction.getIssueDate().getTime()/(1000*60*60*24);
+			int f=r-i;
+			System.out.println(r);
+			System.out.println(i);
+			System.out.println(f);
+			if(f>14) {
+				transaction.setFine(f);
+				return false;
+			}
 			entityManager.remove(transaction);
 			entityManager.getTransaction().commit();
 			entityManager.close();
