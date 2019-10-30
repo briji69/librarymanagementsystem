@@ -11,13 +11,13 @@ public interface LibrarianService {
 	//to perform CURD operation
 	public BooksInventoryInfo addBook(BooksInventoryInfo book);
 	public boolean deleteBook(int bookId);
-	public BooksInventoryInfo updateBook(BooksInventoryInfo book);
 	public Users addUser(Users user);
 
 
 	// to issue and return book 
-	public BooksTransaction toIssueBook(int registrationId);
-
+	public BooksTransaction toIssueBook(int registrationId,int userId);
+	public boolean toRejectRequest(int registrationId);
+	public List<BooksRegistration> requestedList();
 	// to check issued Books
 	public List<BooksTransaction> getIssuedBookList();
 

@@ -1,5 +1,7 @@
 package com.capgemini.librarymanagementsystem.dao;
 
+import java.util.List;
+
 import com.capgemini.librarymanagementsystem.dto.Users;
 
 public interface AdminDao {
@@ -10,5 +12,7 @@ public interface AdminDao {
 		public Users addLibrarian(Users user);
 		public Boolean updateLibrarian(Users user);
 		public Boolean deleteLibrarian(String id);
+
+		List<Users> showAllLibrarians();
 		
 }

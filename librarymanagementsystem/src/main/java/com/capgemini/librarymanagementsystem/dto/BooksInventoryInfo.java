@@ -8,7 +8,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "bookinventoryinfo")
 public class BooksInventoryInfo {
-	
 	@Id
 	@Column(name = "book_id")
 	private int bookId;
@@ -22,7 +21,6 @@ public class BooksInventoryInfo {
 	private int yearOfPublication;
 	@Column
 	private String publisher;
-
 	
 	public int getBookId() {
 		return bookId;
@@ -60,12 +58,14 @@ public class BooksInventoryInfo {
 	public void setPublisher(String publisher) {
 		this.publisher = publisher;
 	}
-
+		
 	@Override
 	public String toString() {
 		return "BooksInventoryInfo [bookId=" + bookId + ", bookName=" + bookName + ", firstAuthor=" + firstAuthor
 				+ ", secondAuthor=" + secondAuthor + ", yearOfPublication=" + yearOfPublication + ", publisher="
 				+ publisher + "]";
 	}
+
+
 
 }

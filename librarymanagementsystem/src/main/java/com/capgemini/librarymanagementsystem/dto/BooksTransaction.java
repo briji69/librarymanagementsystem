@@ -20,6 +20,10 @@ public class BooksTransaction {
 	private Date returnDate;
 	@Column(name="fine")
 	private int fine;
+	@Column(name = "user_id")
+	private int userId;
+	@Column(name = "book_id")
+	private int bookId;
 	public int getTransactionId() {
 		return transactionId;
 	}
@@ -32,6 +36,8 @@ public class BooksTransaction {
 	public void setRegistrationId(int registrationId) {
 		this.registrationId = registrationId;
 	}
+	
+	
 	public Date getIssueDate() {
 		return issueDate;
 	}
@@ -50,11 +56,26 @@ public class BooksTransaction {
 	public void setFine(int fine) {
 		this.fine = fine;
 	}
+	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public int getBookId() {
+		return bookId;
+	}
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
 	@Override
 	public String toString() {
 		return "BooksTransaction [transactionId=" + transactionId + ", registrationId=" + registrationId
-				+ ", issueDate=" + issueDate + ", returnDate=" + returnDate + ", fine=" + fine + "]";
+				+ ", issueDate=" + issueDate + ", returnDate=" + returnDate + ", fine=" + fine + ", userId=" + userId
+				+ ", bookId=" + bookId + "]";
 	}
+	
 
 
 }

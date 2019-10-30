@@ -11,7 +11,7 @@ public class Users {
 
 	@Id
 	@Column(name="user_id")
-	private String userId;
+	private int userId;
 	@Column(name="user_name")
 	private String userName;
 	@Column(name="email_id")
@@ -21,10 +21,11 @@ public class Users {
 	@Column(name="type")
 	private String type;
 	
-	public String getUserId() {
+	
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public String getUserName() {

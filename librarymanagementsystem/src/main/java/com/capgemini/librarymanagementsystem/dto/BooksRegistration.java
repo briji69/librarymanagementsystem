@@ -13,7 +13,7 @@ public class BooksRegistration {
 	@Column(name = "registeration_id")
 	private int registrationId;
 	@Column(name ="user_id")
-	private String userId;
+	private int userId;
 	@Column(name ="book_id")
 	private int bookId;
 	@Column(name="registeration_date")
@@ -25,10 +25,11 @@ public class BooksRegistration {
 		this.registrationId = registrationId;
 	}
 	
-	public String getUserId() {
+	
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public int getBookId() {

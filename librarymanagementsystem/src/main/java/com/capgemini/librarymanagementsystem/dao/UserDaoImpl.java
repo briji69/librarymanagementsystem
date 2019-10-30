@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import com.capgemini.librarymanagementsystem.dto.BooksInventoryInfo;
 import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
+import com.capgemini.librarymanagementsystem.dto.BooksTransaction;
 
 @Repository
 public class UserDaoImpl implements UserDao{
@@ -19,7 +20,6 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public List<BooksInventoryInfo> searchBooks(String bookName) {
 		List<BooksInventoryInfo> bookList=null;
-
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
 			TypedQuery<BooksInventoryInfo> query=entityManager.createQuery("FROM BooksInventoryInfo WHERE bookName=:name", BooksInventoryInfo.class);
@@ -30,28 +30,12 @@ public class UserDaoImpl implements UserDao{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return bookList;
+		return null;
 	}
 
-	@Override
-	public List<BooksInventoryInfo> searchBooks(String bookName, String firstAuthor) {
-		List<BooksInventoryInfo> bookList=null;
-		try {
-			EntityManager entityManager=entityManagerFactory.createEntityManager();
-			TypedQuery<BooksInventoryInfo> query=entityManager.createQuery("FROM BooksInventoryInfo WHERE bookName=:name and firstAuthor=:author", BooksInventoryInfo.class);
-			query.setParameter("name", bookName);
-			query.setParameter("author", firstAuthor);
-			bookList=query.getResultList();
-			entityManager.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return bookList;
-	}
 
 	@Override
 	public BooksRegistration requestToBook(int bookId) {
-		BooksRegistration info=null;
 		try {
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
 			BooksInventoryInfo book=entityManager.find(BooksInventoryInfo.class, bookId);
@@ -67,18 +51,53 @@ public class UserDaoImpl implements UserDao{
 				entityManager.persist(registration);
 				entityManager.getTransaction().commit();
 				entityManager.close();
-				return info;
+				return registration;
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
-		
 	}
 	@Override
-	public BooksInventoryInfo returnBook(int transactionId) {
-		
-		return null;
+	public boolean returnBook(int transactionId) {
+		try {
+			EntityManager entityManager=entityManagerFactory.createEntityManager();
+			entityManager.getTransaction().begin();
+			BooksTransaction transaction=entityManager.find(BooksTransaction.class, transactionId);
+			int r=(int) new Date().getTime()/(1000*60*60*24);
+			int i=(int) transaction.getIssueDate().getTime()/(1000*60*60*24);
+			int f=r-i;
+			System.out.println(r);
+			System.out.println(i);
+			System.out.println(f);
+			if(f>14) {
+				transaction.setFine(f);
+				return false;
+			}
+			entityManager.remove(transaction);
+			entityManager.getTransaction().commit();
+			entityManager.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
+
+	@Override
+	public List<BooksTransaction> recievedBook() {
+		List<BooksTransaction> bookList=null;
+		try {
+			EntityManager entityManager=entityManagerFactory.createEntityManager();
+			TypedQuery<BooksTransaction> query=entityManager.createQuery("FROM BooksTransaction WHERE userId=:id", BooksTransaction.class);
+			query.setParameter("id", AdminDaoImpl.id);
+			bookList=query.getResultList();
+			entityManager.close();
+			return bookList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return bookList;
+	}
 }
