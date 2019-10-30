@@ -36,7 +36,7 @@ public class LibraryManagementSystemLibTest {
 	@Test void addUser() { 
 		Users user = new Users();
 		user.setUserName("briji");
-		user.setUserId("1005");
+		user.setUserId(1005);
 		user.setEmailId("brij12@gmail.com");
 		user.setPassword("Bri@12");
 
@@ -45,21 +45,6 @@ public class LibraryManagementSystemLibTest {
 
 	}
 
-	@Test void updateBook() { 
-		BooksInventoryInfo books = new BooksInventoryInfo();
-
-		books.setBookName("Panchantra"); 
-		books.setFirstAuthor("munshi");
-		books.setSecondAuthor("rajbala"); 
-		books.setYearOfPublication(1997);
-		books.setBookId(3001);
-		books.setPublisher("abs corporation");
-
-		BooksInventoryInfo book1 = lib.updateBook(books);
-		assertNotNull(book1);
-
-
-	}
 
 	@Test
 	void deleteBook() {
@@ -69,7 +54,7 @@ public class LibraryManagementSystemLibTest {
 
 	@Test
 	void toIssueBook() {
-		BooksTransaction booksTransaction = lib.toIssueBook(15461);
+		BooksTransaction booksTransaction = lib.toIssueBook(15461,1235);
 		assertNotNull(booksTransaction);
 	}
 

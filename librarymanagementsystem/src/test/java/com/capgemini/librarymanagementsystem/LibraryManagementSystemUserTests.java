@@ -23,13 +23,6 @@ public class LibraryManagementSystemUserTests {
 	}
 
 	@Test
-	void searchBooksByNameAndAuthor() {
-		List<BooksInventoryInfo> books = daoImpl.searchBooks("RajDarbari","raj");
-		assertNotNull(books);
-
-	}
-
-	@Test
 	void requestToBook() {
 		BooksRegistration reg = daoImpl.requestToBook(3002);
 		assertNotNull(reg);
@@ -37,7 +30,7 @@ public class LibraryManagementSystemUserTests {
 	}
 
 	@Test void returnBook() { 
-		BooksInventoryInfo booksInventoryInfo =daoImpl.returnBook(65851); 
+		boolean booksInventoryInfo =daoImpl.returnBook(65851); 
 		assertNotNull(booksInventoryInfo); }
 
 }

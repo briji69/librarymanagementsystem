@@ -25,7 +25,7 @@ class LibrarymanagementsystemApplicationTests {
 		user.setUserName("raj");
 		user.setEmailId("raj@12gmail.com");
 		user.setPassword("Raj@12"); 
-		user.setUserId("1008");
+		user.setUserId(1008);
 
 		Users users = test.addLibrarian(user);
 		assertNotNull(users);
@@ -38,7 +38,7 @@ class LibrarymanagementsystemApplicationTests {
 		user.setUserName("brijmohan"); 
 		user.setEmailId("brijmohan@12gmail.com");
 		user.setPassword("brij@12"); 
-		user.setUserId("1005");
+		user.setUserId(1005);
 
 		Boolean users = test.updateLibrarian(user);
 		assertEquals(true, users); 
@@ -48,7 +48,7 @@ class LibrarymanagementsystemApplicationTests {
 	@Test
 	void adminLogin() {
 		Users admin = new Users();
-		admin.setUserId("101");
+		admin.setUserId(101);
 		admin.setPassword("Yas@12");
 
 		Users users = test.login(admin);
