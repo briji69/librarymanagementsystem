@@ -16,6 +16,12 @@ import com.capgemini.librarymanagementsystem.dto.BooksTransaction;
 
 @Repository
 public class UserDaoImpl implements UserDao{
+	
+	private static long daysBetween(Date one, Date two) {
+		long difference =  (one.getTime()-two.getTime())/86400000;
+		return Math.abs(difference);
+	}
+	
 	private static EntityManagerFactory entityManagerFactory=Persistence.createEntityManagerFactory("TestPersistence");
 	@Override
 	public List<BooksInventoryInfo> searchBooks(String bookName) {
@@ -64,16 +70,16 @@ public class UserDaoImpl implements UserDao{
 			EntityManager entityManager=entityManagerFactory.createEntityManager();
 			entityManager.getTransaction().begin();
 			BooksTransaction transaction=entityManager.find(BooksTransaction.class, transactionId);
-			int r=(int) new Date().getTime()/(1000*60*60*24);
-			int i=(int) transaction.getIssueDate().getTime()/(1000*60*60*24);
-			int f=r-i;
-			System.out.println(r);
-			System.out.println(i);
-			System.out.println(f);
-			if(f>14) {
-				transaction.setFine(f);
+			
+			Date one = new Date();
+			Date two = transaction.getIssueDate();
+			long numberofdays =UserDaoImpl.daysBetween(one, two);
+			if(numberofdays>14) {
+				transaction.setFine((int)numberofdays);
+				entityManager.getTransaction().commit();
 				return false;
 			}
+			
 			entityManager.remove(transaction);
 			entityManager.getTransaction().commit();
 			entityManager.close();
