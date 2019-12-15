@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capgemini.librarymanagementsystem.dao.UserDaoImpl;
@@ -13,8 +14,8 @@ import com.capgemini.librarymanagementsystem.dto.BooksRegistration;
 
 @SpringBootTest
 public class LibraryManagementSystemUserTests {
-
-	UserDaoImpl daoImpl = new UserDaoImpl();
+	@Autowired
+	UserDaoImpl daoImpl;
 
 	@Test
 	void searchBooks() {

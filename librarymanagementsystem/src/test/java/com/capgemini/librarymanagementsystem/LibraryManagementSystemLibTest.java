@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.catalina.User;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capgemini.librarymanagementsystem.dao.LibrarianDaoImpl;
@@ -16,12 +17,12 @@ import com.capgemini.librarymanagementsystem.dto.Users;
 
 @SpringBootTest
 public class LibraryManagementSystemLibTest {
+	@Autowired
+	LibrarianDaoImpl lib;
 
-	LibrarianDaoImpl lib = new LibrarianDaoImpl();
-
-	@Test void addBook() { 
-		BooksInventoryInfo book = new BooksInventoryInfo();
-		book.setBookId(3002); 
+	@Test
+	void addBook() { 
+		BooksInventoryInfo book = new BooksInventoryInfo(); 
 		book.setBookName("RajDarbari");
 		book.setFirstAuthor("raj"); 
 		book.setSecondAuthor("bala");
@@ -30,10 +31,11 @@ public class LibraryManagementSystemLibTest {
 
 		BooksInventoryInfo book1 = lib.addBook(book);
 		assertNotNull(book1);
-
 	}
 
-	@Test void addUser() { 
+	
+	@Test
+	void addUser() { 
 		Users user = new Users();
 		user.setUserName("briji");
 		user.setUserId(1005);
@@ -48,7 +50,7 @@ public class LibraryManagementSystemLibTest {
 
 	@Test
 	void deleteBook() {
-		Boolean check= lib.deleteBook(3001);
+		Boolean check= lib.deleteBook(3002);
 		assertEquals(true, check);
 	}
 
@@ -69,14 +71,14 @@ public class LibraryManagementSystemLibTest {
 		List<Users> user = lib.showAllUsers();
 		assertNotNull(user);
 	}
-	
+
 	@Test
 	void showAllBook() {
 		List<BooksInventoryInfo> books = lib.getAllBooks();
 		assertNotNull(books);
 	}
-	
-	
+
+
 
 
 }

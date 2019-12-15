@@ -59,8 +59,6 @@ public class LibrarianDaoImpl implements LibrarianDao {
 		return isDeleted;
 	}
 
-
-
 	@Override
 	public List<BooksInventoryInfo> getAllBooks() {
 		List<BooksInventoryInfo> bookList=null;
@@ -73,8 +71,6 @@ public class LibrarianDaoImpl implements LibrarianDao {
 			e.printStackTrace();		}
 		return bookList;
 	}
-
-
 
 	@Override
 	public List<Users> showAllUsers()  {

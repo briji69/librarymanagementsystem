@@ -19,9 +19,12 @@ import com.capgemini.librarymanagementsystem.util.BookResponse;
 import com.capgemini.librarymanagementsystem.util.RegistrationResponse;
 import com.capgemini.librarymanagementsystem.util.TransactionResponse;
 
+
 @CrossOrigin(origins = "*")
+
 @RestController
 public class UserController {
+	
 	@Autowired
 	UserService userService;
 	@GetMapping("user/searchBooks/{bookName}")

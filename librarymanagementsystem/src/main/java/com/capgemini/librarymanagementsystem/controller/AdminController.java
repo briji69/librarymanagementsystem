@@ -16,7 +16,9 @@ import com.capgemini.librarymanagementsystem.dto.Users;
 import com.capgemini.librarymanagementsystem.service.AdminService;
 import com.capgemini.librarymanagementsystem.util.UserResponse;
 
-@CrossOrigin(origins = "*",allowedHeaders = "*")
+
+
+@CrossOrigin(origins = "*")
 @RestController
 public class AdminController {
 	
