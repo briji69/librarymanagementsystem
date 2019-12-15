@@ -17,7 +17,7 @@ public class Validator {
 	}
 
 	public String validateEmail(String email) {
-		Pattern pat = Pattern.compile("\\w+\\@\\w+\\.\\w+");
+		Pattern pat = Pattern.compile("\\W\\@\\w+\\.\\w+");
 		Matcher	mat = pat.matcher(email);
 		if(mat.matches()){
 			return email;

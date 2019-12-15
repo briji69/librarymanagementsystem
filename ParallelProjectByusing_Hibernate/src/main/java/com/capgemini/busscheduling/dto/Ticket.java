@@ -1,6 +1,5 @@
 package com.capgemini.busscheduling.dto;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
